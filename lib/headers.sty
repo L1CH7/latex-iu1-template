@@ -1,0 +1,78 @@
+%% lib/headers.sty
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{headers}[2026/02/08 v18.0 Pixel Perfect]
+
+\RequirePackage{titlesec}
+\RequirePackage{etoolbox}
+
+% --- РАСЧЕТНАЯ БАЗА (14pt = 1 интервал) ---
+% Bottom = 28pt (дает визуально 56pt/4 инт)
+% Top    = 21pt (дает визуально 56pt/4 инт, т.к. 42pt давало 77pt)
+% Comp   = 14pt (чтобы между заголовками осталось 14pt кода -> 28pt визуала)
+
+\newlength{\intervalbottom} \setlength{\intervalbottom}{21pt}
+\newlength{\intervaltop}    \setlength{\intervaltop}{21pt}
+\newlength{\compensation}   \setlength{\compensation}{14pt}
+
+% =========================================================
+% КОМПЕНСАЦИЯ ПРИ НАЛОЖЕНИИ
+% =========================================================
+\newcommand{\spacingfix}{%
+    \if@nobreak
+        % Сценарий: Заголовок -> Заголовок.
+        % Схлопнутый отступ titlesec будет Max(28, 21) = 28pt.
+        % Мы вычитаем 14pt. Итог кода: 14pt.
+        % Ожидаемый визуал: 28pt (2 интервала).
+        \vspace{-\compensation}%
+    \fi
+}
+
+\pretocmd{\section}{\spacingfix}{}{}
+\pretocmd{\subsection}{\spacingfix}{}{}
+\pretocmd{\subsubsection}{\spacingfix}{}{}
+
+
+% =========================================================
+% НАСТРОЙКИ TITLESEC
+% =========================================================
+
+% --- Глава (1.) ---
+\titleformat{\chapter}[block]
+    {\filcenter\normalfont\bfseries} 
+    {\thechapter.}       
+    {0.33em}             
+    {}
+
+% Снизу: 28pt
+\titlespacing{\chapter}{0pt}{-30pt}{\intervalbottom}
+
+
+% --- Раздел (1.1.) ---
+\titleformat{\section}[block]
+    {\normalfont\bfseries}           
+    {\hspace{1.25cm}\thesection.} 
+    {0.33em}             
+    {}
+
+% Сверху: 21pt. Снизу: 28pt.
+\titlespacing{\section}{0pt}{\intervaltop}{\intervalbottom}
+
+
+% --- Подраздел (1.1.1.) ---
+\titleformat{\subsection}[block]
+    {\normalfont\bfseries}
+    {\hspace{1.25cm}\thesubsection.}
+    {0.33em}
+    {}
+
+\titlespacing{\subsection}{0pt}{\intervaltop}{\intervalbottom}
+
+
+% --- Пункт (1.1.1.1.) ---
+\titleformat{\subsubsection}[block]
+    {\normalfont\bfseries}
+    {\hspace{1.25cm}\thesubsubsection.}
+    {0.33em}
+    {}
+
+\titlespacing{\subsubsection}{0pt}{\intervaltop}{\intervalbottom}

@@ -1,0 +1,20 @@
+{
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "GOST2304 Type A",
+    "fontSize": "22px",
+    "lineColor": "#000000",
+    
+    "nodeFontFamily": "GOST2304 Type A",
+    "nodeFontSize": "22px",
+    "clusterBkg": "#ffffff",
+    "clusterBorder": "#000000",
+    "titleColor": "#000000"
+  },
+  "flowchart": {
+    "htmlLabels": true,
+    "padding": 20,
+    "nodeSpacing": 50,
+    "rankSpacing": 50
+  }
+}

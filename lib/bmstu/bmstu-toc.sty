@@ -1,0 +1,46 @@
+%% bmstu_toc.sty
+%% Copyright 2023 Mikael Novikov
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Mikael Novikov.
+%
+% This work consists of all files listed in manifest.txt.
+
+\RequirePackage{titletoc}
+
+% Создание содержания
+\newcommand{\maketableofcontents}
+{
+	\renewcommand\contentsname{СОДЕРЖАНИЕ}
+	% --- ИСПРАВЛЕНИЕ №5: Оглавление ---
+
+	% Настройка точек: "1. Название ......... 5"
+	\titlecontents{chapter}[0pt]
+    {} % {\bfseries} % Если хотим жирные заголовки 1 
+    {\thecontentslabel.\hspace{0.33em}} % Точка после номера + отступ 1 пробел
+    {}
+    {\titlerule*[0.5pc]{.}\thecontentspage}
+
+	\titlecontents{section}[0pt] % Если хотим отступ, то можно сделать например 1.5em
+    {}
+    {\thecontentslabel.\hspace{0.33em}} 
+    {}
+    {\titlerule*[0.5pc]{.}\thecontentspage}
+
+	\titlecontents{subsection}[0pt]
+    {}
+    {\thecontentslabel.\hspace{0.33em}} 
+    {}
+    {\titlerule*[0.5pc]{.}\thecontentspage}
+
+	\tableofcontents
+}

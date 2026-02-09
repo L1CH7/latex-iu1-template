@@ -1,0 +1,29 @@
+% lib/project-setup.sty
+\ProvidesPackage{project-setup}
+
+% --- Пакеты ---
+\usepackage{graphicx}
+\usepackage{shellesc} % Для запуска внешних команд
+\usepackage{float}    % Чтобы работало [H] для картинок
+
+% --- Пути поиска ресурсов ---
+% Графика (картинки, диаграммы, логотипы)
+\graphicspath{{assets/images/}{assets/diagrams/}{lib/bmstu/}}
+
+% --- Настройка Mermaid (Локальный mmdc) ---
+% Путь к mmdc внутри .nodeenv (относительно корня проекта)
+\newcommand{\mmdcpath}{./.nodeenv/bin/mmdc}
+
+% Обновленная команда с проверкой времени изменения файлов
+\newcommand{\includemermaid}[2][width=\linewidth]{%
+  \ShellEscape{%
+    % Проверяем, нужно ли обновлять картинку
+    if [ ! -f assets/diagrams/#2.pdf ] || [ assets/diagrams/#2.mmd -nt assets/diagrams/#2.pdf ]; then
+       % --pdfFit : Магический флаг. Делает PDF размером ровно с картинку (без полей и разрывов)
+       % -b transparent : Прозрачный фон
+       \mmdcpath\space -i assets/diagrams/#2.mmd -o assets/diagrams/#2.pdf --pdfFit -b white -p assets/puppeteer-config.json -C assets/mermaid.css -c assets/mermaid-config.json;
+    fi
+  }%
+  % Вставляем PDF как обычную картинку
+  \includegraphics[#1]{assets/diagrams/#2}%
+}

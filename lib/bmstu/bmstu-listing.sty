@@ -1,0 +1,107 @@
+%% lib/bmstu/bmstu-listing.sty
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bmstu-listing}[2026/02/08 v3.0.0 Unified Styles]
+
+% --- Пакеты ---
+\RequirePackage{listings}
+\RequirePackage{xcolor}
+
+% --- Цвета ---
+\definecolor{numbers}{rgb}{0.5, 0.5, 0.5}
+\definecolor{keywords}{rgb}{0.13, 0.13, 1}
+\definecolor{comments}{rgb}{0, 0.5, 0}
+\definecolor{strings}{rgb}{0.9, 0, 0}
+
+% --- Глобальные настройки (База) ---
+\lstset{
+    basicstyle=\small\ttfamily,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    float=h!,
+    keepspaces=true,
+    showstringspaces=false,
+    extendedchars=true,
+    % --- Исправление отступов ---
+    captionpos=t,           % Подпись СВЕРХУ
+	% aboveskip=0pt,          
+    % belowskip=0pt,
+    % abovecaptionskip=-7pt,   % Отступ НАД подписью (контролируется \intextsep)
+    % belowcaptionskip=7pt,  % Отступ ПОД подписью (до кода)
+}
+
+% =========================================================
+% ОПРЕДЕЛЕНИЕ СТИЛЕЙ (ЧТОБЫ НЕ ДУБЛИРОВАТЬ КОД)
+% =========================================================
+
+% 1. Стиль для "Простого" листинга (рамочка, без подсветки)
+\lstdefinestyle{bmstu-simple}{
+    frame=single,
+    numbers=none
+}
+
+% 2. Стиль для "Красивого" листинга (линия слева, цвета, номера)
+\lstdefinestyle{bmstu-pretty}{
+    keywordstyle=\color{keywords},
+    stringstyle=\color{strings},
+    commentstyle=\color{comments},
+    numbers=left,
+    numberstyle=\footnotesize\color{numbers},
+    frame=leftline
+}
+
+% =========================================================
+% КОМАНДЫ ДЛЯ ЗАГРУЗКИ ИЗ ФАЙЛОВ
+% =========================================================
+
+% Команда: Простой листинг из файла
+% Аргументы: {filename}{caption}
+\newcommand{\includelisting}[2]
+{
+    \lstinputlisting[
+        style=bmstu-simple,
+        caption={#2},
+        label={lst:#1},
+    ]{assets/listings/#1}
+}
+
+% Команда: Красивый листинг из файла
+% Аргументы: {filename}{language}{caption}
+\newcommand{\includelistingpretty}[3]
+{
+    \lstinputlisting[
+        style=bmstu-pretty,
+        language={#2},
+        caption={#3},
+        label={lst:#1},
+    ]{assets/listings/#1}
+}
+
+% =========================================================
+% ОКРУЖЕНИЯ ДЛЯ INLINE КОДА (ПРЯМО В TEX)
+% =========================================================
+
+% Окружение: Красивый листинг (inline)
+% Использование: \begin{code}{label}{language}{caption} ... \end{code}
+\lstnewenvironment{code}[3]
+{
+    \lstset{
+        style=bmstu-pretty,
+        label={lst:#1},
+        language={#2},
+        caption={#3}
+    }
+}
+{}
+
+% Окружение: Простой листинг (inline)
+% Использование: \begin{plaincode}{label}{caption} ... \end{plaincode}
+\lstnewenvironment{plaincode}[2]
+{
+    \lstset{
+        style=bmstu-simple,
+        label={lst:#1},
+        caption={#2}
+    }
+}
+{}

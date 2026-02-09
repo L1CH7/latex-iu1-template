@@ -1,0 +1,87 @@
+%% lib/bmstu/bmstu-spacing.sty
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bmstu-spacing}[2026/02/09 v1.1.0 Tight Spacing]
+
+\RequirePackage{etoolbox}
+
+% =========================================================
+% 1. КОНСТАНТЫ
+% =========================================================
+% \spc@outer: Отступ от основного текста до флоата (оставляем 14pt, чтобы не слипалось с текстом)
+\newlength{\spc@outer}
+\setlength{\spc@outer}{14pt}
+
+% \spc@inner: Отступ МЕЖДУ подписью и контентом (таблицей/рисунком/кодом).
+% Ставим 6pt (чуть меньше половины строки). Это уберет эффект "двойного интервала".
+\newlength{\spc@inner}
+\setlength{\spc@inner}{6pt}
+
+% =========================================================
+% 2. ПЛАВАЮЩИЕ ОБЪЕКТЫ (Внешние отступы)
+% =========================================================
+\setlength{\intextsep}{\spc@outer}    % Текст <-> Объект (в середине страницы)
+\setlength{\textfloatsep}{\spc@outer} % Текст <-> Объект (вверху/внизу страницы)
+\setlength{\floatsep}{\spc@outer}     % Объект <-> Объект
+
+% =========================================================
+% 3. ПОДПИСИ (CAPTION) - Внутренние отступы
+% =========================================================
+\RequirePackage{caption}
+
+% Сброс паразитных отступов
+\setlength{\abovecaptionskip}{0pt}
+\setlength{\belowcaptionskip}{0pt}
+
+% Базовая настройка
+\captionsetup{
+    labelsep=emdash, 
+    singlelinecheck=false
+}
+
+% --- ТАБЛИЦЫ ---
+% skip=\spc@inner (6pt): Прижимаем подпись к таблице.
+\captionsetup[table]{
+    position=top, 
+    justification=raggedright, 
+    % skip=-7pt %\spc@inner
+}
+
+% Патч для таблиц: убиваем лишние вертикальные пробелы внутри окружения
+\AtBeginEnvironment{table}{%
+    \setlength{\parskip}{0pt}%
+    \setlength{\abovecaptionskip}{8pt}%
+    \setlength{\belowcaptionskip}{-8pt}%
+}
+
+% --- РИСУНКИ ---
+% skip=\spc@inner (6pt): Прижимаем подпись к рисунку снизу.
+% Если всё равно кажется много, значит у самой картинки (PDF/PNG) есть белые поля.
+\captionsetup[figure]{
+    position=bottom, 
+    justification=centering, 
+    % skip=\spc@inner
+}
+
+% Патч для рисунков: тоже убиваем parskip, чтобы картинка не уезжала
+\AtBeginEnvironment{figure}{%
+    \setlength{\parskip}{0pt}%
+    \setlength{\abovecaptionskip}{8pt}%
+    \setlength{\belowcaptionskip}{-8pt}%
+}
+
+% =========================================================
+% 4. ЛИСТИНГИ (LISTINGS)
+% =========================================================
+\RequirePackage{listings}
+
+\lstset{%
+    aboveskip=0pt,%
+    belowskip=0pt,%
+    abovecaptionskip=0pt,%
+    % Отступ от подписи до кода. 
+    % Ставим те же 6pt. Визуально рамка кода сама добавляет немного воздуха,
+    % так что 6pt будет выглядеть идеально.
+    belowcaptionskip=\spc@inner,% 
+    frame=single,%
+    framesep=5pt%
+}

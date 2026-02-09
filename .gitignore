@@ -1,0 +1,4 @@
+.nodeenv
+build
+
+assets/**/*.pdf
