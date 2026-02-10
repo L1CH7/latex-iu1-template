@@ -12,6 +12,22 @@
 \definecolor{comments}{rgb}{0, 0.5, 0}
 \definecolor{strings}{rgb}{0.9, 0, 0}
 
+\lstdefinelanguage{yaml}{
+  keywords={true,false,null,y,n},
+  keywordstyle=\color{darkgray}\bfseries,
+  basicstyle=\small\ttfamily,
+  sensitive=false,
+  comment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{blue}\ttfamily,
+  moredelim=[l][\color{orange}]{\&},
+  moredelim=[l][\color{magenta}]{*},
+  moredelim=**[il][\color{red}{:}\color{blue}]{:},
+  morestring=[b]',
+  morestring=[b]"
+}
+
 % --- Глобальные настройки (База) ---
 \lstset{
     basicstyle=\small\ttfamily,
