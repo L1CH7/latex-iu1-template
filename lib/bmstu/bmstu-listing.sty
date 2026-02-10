@@ -32,18 +32,18 @@
 \lstset{
     basicstyle=\small\ttfamily,
     breaklines=true,
-    breakatwhitespace=true,
+    breakatwhitespace=true, % Разрешаем перенос внутри строк (регулярок)
     tabsize=4,
     float=h!,
     keepspaces=true,
     showstringspaces=false,
     extendedchars=true,
+    % --- Исправление отображения спецсимволов ---
+    literate={~}{{\char`~}}1,
+    % --- Индикатор переноса строки ---
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
     % --- Исправление отступов ---
     captionpos=t,           % Подпись СВЕРХУ
-	% aboveskip=0pt,          
-    % belowskip=0pt,
-    % abovecaptionskip=-7pt,   % Отступ НАД подписью (контролируется \intextsep)
-    % belowcaptionskip=7pt,  % Отступ ПОД подписью (до кода)
 }
 
 % =========================================================

@@ -1,0 +1,15 @@
+%% lib/bmstu/bmstu-pdf.sty
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bmstu-pdf}[2026/02/10 v1.1 Naked PDF Insert]
+
+\RequirePackage{pdfpages}
+
+% Команда для вставки ТЗ (или любых сканов)
+% Вставляет страницы "как есть": без полей, без номеров, размер в размер.
+\newcommand{\insertTask}[1]{
+    \includepdf[
+        pages=-,           % Все страницы файла
+        fitpaper=true,     % Если PDF чуть меньше/больше, подогнать под A4
+        pagecommand={\thispagestyle{empty}}     % Пустая команда = нет колонтитулов и номеров
+    ]{#1}
+}

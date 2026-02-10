@@ -28,8 +28,8 @@
 \sloppy
 
 % 4. Подключаем твои модули (они лежат в lib/, latexmk их найдет)
-\RequirePackage{headers}
-\RequirePackage{bullets}
+\RequirePackage{bmstu-headers}
+\RequirePackage{bmstu-bullets}
 
 % 5. Таблицы и Картинки
 \RequirePackage{xcolor}
@@ -88,5 +88,8 @@
 
 % Подключаем наш "Санитар" последним, чтобы он переписал настройки остальных
 \RequirePackage{bmstu-spacing}
+
+% Для ТЗ и иных страничек
+\RequirePackage{bmstu-pdf}
 
 \endinput
