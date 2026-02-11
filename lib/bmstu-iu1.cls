@@ -92,4 +92,14 @@
 % Для ТЗ и иных страничек
 \RequirePackage{bmstu-pdf}
 
+% Добавляем пакет subcaption для подписей к картинкам если их дробим
+\RequirePackage{subcaption}
+\DeclareCaptionLabelFormat{russiansub}{(#2)} % Формат скобок (а)
+\captionsetup[subfigure]{
+    font={small},              % Размер шрифта (small = 12pt в классе 14pt)
+    labelformat=simple,        % Простой формат (просто буква)
+    labelsep=space,            % Пробел после буквы
+}
+\renewcommand{\thesubfigure}{\asbuk{subfigure}} % Использовать русские буквы а, б, в...
+
 \endinput
