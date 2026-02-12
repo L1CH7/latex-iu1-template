@@ -12,19 +12,28 @@
 
 % --- Настройка Mermaid (Локальный mmdc) ---
 % Путь к mmdc внутри .nodeenv (относительно корня проекта)
-\newcommand{\mmdcpath}{./latex-iu1-template/.nodeenv/bin/mmdc}
-
-
-% Обновленная команда с проверкой времени изменения файлов
 \newcommand{\includemermaid}[2][width=\linewidth]{%
   \ShellEscape{%
-    % Проверяем, нужно ли обновлять картинку
-    if [ ! -f assets/diagrams/#2.pdf ] || [ assets/diagrams/#2.mmd -nt assets/diagrams/#2.pdf ]; then
-       % --pdfFit : Магический флаг. Делает PDF размером ровно с картинку (без полей и разрывов)
-       % -b transparent : Прозрачный фон
-       \mmdcpath\space -i assets/diagrams/#2.mmd -o assets/diagrams/#2.pdf --pdfFit -b white -p assets/puppeteer-config.json -C assets/mermaid.css -c assets/mermaid-config.json;
-    fi
+    bash -c '
+    MMDC=$(find . -name mmdc -path "*/.nodeenv/*" -type f -executable | head -n 1); %
+    if [ -z "$MMDC" ]; then MMDC="./latex-iu1-template/.nodeenv/bin/mmdc"; fi; %
+    %
+    SRC="assets/diagrams/#2.mmd"; %
+    PDF="assets/diagrams/#2.pdf"; %
+    %
+    if [ ! -f "$SRC" ]; then %
+        echo "!!! [MERMAID ERROR] Source not found: $SRC !!!"; %
+    elif [ ! -f "$PDF" ] || [ "$SRC" -nt "$PDF" ]; then %
+        echo "--- [MERMAID] Rebuilding $PDF (Source is newer) ---"; %
+        rm -f "$PDF"; %
+        % Команда сборки БЕЗ обратных слэшей
+        if "$MMDC" -i "$SRC" -o "$PDF" --pdfFit -b white -p assets/puppeteer-config.json -C assets/mermaid.css -c assets/mermaid-config.json; then %
+            echo "--- [MERMAID] Success: $PDF updated ---"; %
+            touch "$PDF"; %
+        else %
+            echo "!!! [MERMAID ERROR] Build failed for #2 !!!"; %
+        fi; %
+    fi' %
   }%
-  % Вставляем PDF как обычную картинку
   \includegraphics[#1]{assets/diagrams/#2}%
 }

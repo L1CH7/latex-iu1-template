@@ -1,0 +1,20 @@
+%% lib/bmstu/bmstu-formulas.sty
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bmstu-formulas}[2026/02/12 v1.3 BMSTU Formula Fixed Spacing]
+
+\RequirePackage{array}
+
+% Команда для расшифровки переменных "где"
+\newcommand{\where}[1]{%
+    % 1. Не добавляем vspace перед "где", так как его дает уравнение.
+    % 2. Используем \noindent для прижатия к левому краю.
+    \par\noindent где\begingroup
+    % 3. arraystretch 1.0 визуально соответствует 1.5 интервалу текста (21пт).
+    \renewcommand{\arraystretch}{1.0} 
+    \begin{tabular}[t]{c @{~--~} p{0.75\textwidth}}
+        #1
+    \end{tabular}\endgroup
+    % 4. Добавляем небольшую компенсацию после таблицы, 
+    % чтобы до следующего абзаца было ровно 21пкс (1.5 интервала).
+    \par\vspace{0.2\baselineskip} 
+}

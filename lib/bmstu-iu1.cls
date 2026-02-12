@@ -49,17 +49,6 @@
     figurename=Рисунок,
     tablename=Таблица
 }
-% \captionsetup[figure]{
-% 	justification=centering,
-% 	position=bottom        % Подсказываем, что подпись снизу
-% }
-% \captionsetup[table]{
-%     justification=raggedright, % По левому краю
-%     position=top               % ВАЖНО: Убирает лишний отступ над подписью!
-% }
-% Обнуляем стандартные отступы caption, чтобы управлять ими только через \captionsetup
-% \setlength{\abovecaptionskip}{7pt}
-% \setlength{\belowcaptionskip}{-7pt}
 
 % 6. Библиография (BibLaTeX + Biber)
 \RequirePackage[
@@ -91,6 +80,9 @@
 
 % Для ТЗ и иных страничек
 \RequirePackage{bmstu-pdf}
+
+% Формулы в таблице
+\RequirePackage{bmstu-formulas}
 
 % Добавляем пакет subcaption для подписей к картинкам если их дробим
 \RequirePackage{subcaption}
