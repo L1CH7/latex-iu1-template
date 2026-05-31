@@ -52,12 +52,13 @@
 }
 
 \AtBeginEnvironment{table}{% ИДЕАЛ НЕ ТРОГАТЬ
+    \small% Устанавливаем 12pt шрифт по ГОСТу!
+    \renewcommand{\arraystretch}{1.2}% Умеренная высота строк для читаемости по ГОСТу
     \setlength{\parskip}{0pt}%
     % Для подписи СВЕРХУ: 
     % \belowcaptionskip - это отступ НАД подписью (в контексте caption package)
     % \abovecaptionskip - это отступ ПОД подписью (между ней и таблицей)
     \setlength{\belowcaptionskip}{12pt}% = 28pt + 14pt (внешний) = 42pt
-    % \setlength{\belowcaptionskip}{\dimexpr \spc@target - \spc@outer \relax}% = 28pt + 14pt (внешний) = 42pt
     \setlength{\abovecaptionskip}{4pt}% Зазор до таблицы (ровно 2-4пт, чтобы не слиплось)
 }
 

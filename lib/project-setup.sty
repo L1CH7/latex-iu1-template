@@ -5,6 +5,11 @@
 \usepackage{graphicx}
 \usepackage{shellesc} % Для запуска внешних команд
 \usepackage{float}    % Чтобы работало [H] для картинок
+\usepackage{svg}      % Поддержка вставки SVG-рисунков (provides \includesvg)
+\usepackage{tabularx} % Таблицы фиксированной ширины с автопереносом
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
 
 % --- Пути поиска ресурсов ---
 % Графика (картинки, диаграммы, логотипы)
