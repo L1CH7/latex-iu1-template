@@ -24,21 +24,21 @@
     if [ -z "$MMDC" ]; then MMDC="./latex-iu1-template/.nodeenv/bin/mmdc"; fi; %
     %
     SRC="assets/diagrams/#2.mmd"; %
-    PDF="assets/diagrams/#2.pdf"; %
+    SVG="assets/diagrams/#2.svg"; %
     %
     if [ ! -f "$SRC" ]; then %
         echo "!!! [MERMAID ERROR] Source not found: $SRC !!!"; %
-    elif [ ! -f "$PDF" ] || [ "$SRC" -nt "$PDF" ]; then %
-        echo "--- [MERMAID] Rebuilding $PDF (Source is newer) ---"; %
-        rm -f "$PDF"; %
+    elif [ ! -f "$SVG" ] || [ "$SRC" -nt "$SVG" ]; then %
+        echo "--- [MERMAID] Rebuilding $SVG (Source is newer) ---"; %
+        rm -f "$SVG"; %
         % Команда сборки БЕЗ обратных слэшей
-        if "$MMDC" -i "$SRC" -o "$PDF" --pdfFit -b white -p assets/puppeteer-config.json -C assets/mermaid.css -c assets/mermaid-config.json; then %
-            echo "--- [MERMAID] Success: $PDF updated ---"; %
-            touch "$PDF"; %
+        if "$MMDC" -i "$SRC" -o "$SVG" -b white -p assets/puppeteer-config.json -C assets/mermaid.css -c assets/mermaid-config.json; then %
+            echo "--- [MERMAID] Success: $SVG updated ---"; %
+            touch "$SVG"; %
         else %
             echo "!!! [MERMAID ERROR] Build failed for #2 !!!"; %
         fi; %
     fi' %
   }%
-  \includegraphics[#1]{assets/diagrams/#2}%
+  \includesvg[#1,inkscapelatex=false]{assets/diagrams/#2}%
 }
